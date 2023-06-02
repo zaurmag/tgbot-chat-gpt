@@ -48,6 +48,8 @@ bot.on(message('voice'), async ctx => {
     }
 })
 
+// bot.telegram.sendMessage('my chat id', 'my text', { parse_mode: 'MarkdownV2' });
+
 bot.on(message('text'), async ctx => {
     ctx.session ??= INITIAL_SESSION
 
@@ -60,9 +62,9 @@ bot.on(message('text'), async ctx => {
 
         ctx.session.messages.push({ role: openai.roles.ASSISTANT, content: response.content })
 
-        await ctx.reply(response.content)
+        await ctx.reply(response.content, { parse_mode: 'Markdown' })
     } catch (e) {
-        console.error('Error voice message', e.message);
+        console.error('Error text message', e.message);
     }
 })
 
